@@ -404,3 +404,4 @@ def run_for_market(market):
 if __name__ == "__main__":
     run_for_market("kospi")
     run_for_market("kosdaq")
+    

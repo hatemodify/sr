@@ -1,0 +1,37 @@
+name: Run stock ranking script every hour
+
+on:
+  schedule:
+    - cron: '0 * * * *'  # 매시간 정각 (UTC 기준)
+  workflow_dispatch:       # 수동 실행도 허용
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout source
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+
+    - name: Run script
+      run: python run.py
+
+    - name: Deploy JSON to gh-pages
+      run: |
+        git config user.name github-actions
+        git config user.email github-actions@github.com
+        git fetch
+        git switch gh-pages || git checkout --orphan gh-pages
+        cp -r output/* .
+        git add .
+        git commit -m "Update stock ranking JSON" || echo "No changes to commit"
+        git push origin gh-pages --force

@@ -24,7 +24,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run script
-        run: python main.py
+        run: python run.py
 
       - name: Upload output to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3

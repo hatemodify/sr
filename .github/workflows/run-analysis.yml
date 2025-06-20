@@ -2,7 +2,7 @@ name: Run Stock Ranking
 
 on:
   schedule:
-    - cron: '*/3 * * * *'  # ⏰ 매 3분마다 실행
+    - cron: '0 * * * *'  # 매 정시 (UTC)
   workflow_dispatch:       # 🔘 수동 실행도 허용
 
 jobs:
